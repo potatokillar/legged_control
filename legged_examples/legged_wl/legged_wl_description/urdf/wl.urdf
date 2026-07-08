@@ -89,7 +89,7 @@
       </geometry>
     </collision> -->
   </link>
-  <joint name="FL_hip_joint" type="revolute">
+  <joint name="LF_HAA" type="revolute">
     <origin rpy="0 0 0" xyz="0.1995 0.05001 0"/>
     <parent link="trunk"/>
     <child link="FL_hip"/>
@@ -134,7 +134,7 @@
       </geometry>
     </collision> -->
   </link>
-  <joint name="FL_thigh_joint" type="revolute">
+  <joint name="LF_HFE" type="revolute">
     <origin rpy="0 0 0" xyz="0 0.08505 0"/>
     <parent link="FL_hip"/>
     <child link="FL_thigh"/>
@@ -171,7 +171,7 @@
       <!-- <inertia ixx="0.0059674237094595" ixy="-2.463414414414414e-6" ixz="3.941565326576577e-4" iyy="0.0056818460304054" iyz="-3.201302477477477e-5" izz="0.0012614772522523" /> -->
     </inertial>
   </link>
-  <joint name="FL_calf_joint" type="revolute">
+  <joint name="LF_KFE" type="revolute">
     <origin rpy="0 0 0" xyz="0 -0.0001 -0.2"/>
     <parent link="FL_thigh"/>
     <child link="FL_calf"/>
@@ -233,7 +233,7 @@
       <inertia ixx="9.6e-06" ixy="0.0" ixz="0.0" iyy="9.6e-06" iyz="0.0" izz="9.6e-06"/>
     </inertial>
   </link>
-  <joint name="FR_hip_joint" type="revolute">
+  <joint name="RF_HAA" type="revolute">
     <origin rpy="0 0 0" xyz="0.1995 -0.05001 0"/>
     <parent link="trunk"/>
     <child link="FR_hip"/>
@@ -278,7 +278,7 @@
       </geometry>
     </collision> -->
   </link>
-  <joint name="FR_thigh_joint" type="revolute">
+  <joint name="RF_HFE" type="revolute">
     <origin rpy="0 0 0" xyz="0 -0.08505 0"/>
     <parent link="FR_hip"/>
     <child link="FR_thigh"/>
@@ -315,7 +315,7 @@
       <!-- <inertia ixx="0.0059674237094595" ixy="2.463414414414414e-6" ixz="3.941565326576577e-4" iyy="0.0056818460304054" iyz="3.201302477477477e-5" izz="0.0012614772522523" /> -->
     </inertial>
   </link>
-  <joint name="FR_calf_joint" type="revolute">
+  <joint name="RF_KFE" type="revolute">
     <origin rpy="0 0 0" xyz="0 -0.0001 -0.2"/>
     <parent link="FR_thigh"/>
     <child link="FR_calf"/>
@@ -378,7 +378,7 @@
       <inertia ixx="9.6e-06" ixy="0.0" ixz="0.0" iyy="9.6e-06" iyz="0.0" izz="9.6e-06"/>
     </inertial>
   </link>
-  <joint name="RL_hip_joint" type="revolute">
+  <joint name="LH_HAA" type="revolute">
     <origin rpy="0 0 0" xyz="-0.1995 0.04999 0"/>
     <parent link="trunk"/>
     <child link="RL_hip"/>
@@ -423,7 +423,7 @@
       </geometry>
     </collision> -->
   </link>
-  <joint name="RL_thigh_joint" type="revolute">
+  <joint name="LH_HFE" type="revolute">
     <origin rpy="0 0 0" xyz="0 0.08985 0"/>
     <parent link="RL_hip"/>
     <child link="RL_thigh"/>
@@ -460,7 +460,7 @@
       <!-- <inertia ixx="0.0059674237094595" ixy="-2.463414414414414e-6" ixz="3.941565326576577e-4" iyy="0.0056818460304054" iyz="-3.201302477477477e-5" izz="0.0012614772522523" /> -->
     </inertial>
   </link>
-  <joint name="RL_calf_joint" type="revolute">
+  <joint name="LH_KFE" type="revolute">
     <origin rpy="0 0 0" xyz="0 0.0001 -0.2"/>
     <parent link="RL_thigh"/>
     <child link="RL_calf"/>
@@ -521,7 +521,7 @@
       <inertia ixx="9.6e-06" ixy="0.0" ixz="0.0" iyy="9.6e-06" iyz="0.0" izz="9.6e-06"/>
     </inertial>
   </link>
-  <joint name="RR_hip_joint" type="revolute">
+  <joint name="RH_HAA" type="revolute">
     <origin rpy="0 0 0" xyz="-0.1995 -0.05001 0"/>
     <parent link="trunk"/>
     <child link="RR_hip"/>
@@ -566,7 +566,7 @@
       </geometry>
     </collision> -->
   </link>
-  <joint name="RR_thigh_joint" type="revolute">
+  <joint name="RH_HFE" type="revolute">
     <origin rpy="0 0 0" xyz="0 -0.08985 0"/>
     <parent link="RR_hip"/>
     <child link="RR_thigh"/>
@@ -603,7 +603,7 @@
       <!-- <inertia ixx="0.0059674237094595" ixy="2.463414414414414e-6" ixz="3.941565326576577e-4" iyy="0.0056818460304054" iyz="3.201302477477477e-5" izz="0.0012614772522523" /> -->
     </inertial>
   </link>
-  <joint name="RR_calf_joint" type="revolute">
+  <joint name="RH_KFE" type="revolute">
     <origin rpy="0 0 0" xyz="0 -0.0001 -0.2"/>
     <parent link="RR_thigh"/>
     <child link="RR_calf"/>
