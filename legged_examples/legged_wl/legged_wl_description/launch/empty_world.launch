@@ -1,12 +1,24 @@
 <launch>
     <arg name="robot_type" default="wl" doc="Robot model name in Gazebo"/>
     <arg name="z" default="0.5" doc="Initial spawn height"/>
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="true"/>
+    <arg name="verbose" default="false"/>
+    <arg name="physics" default="ode"/>
+    <arg name="extra_gazebo_args" default=""/>
 
     <param name="legged_robot_description" textfile="$(find legged_wl_description)/urdf/wl.urdf"/>
 
     <rosparam file="$(find legged_gazebo)/config/default.yaml" command="load"/>
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(find legged_gazebo)/worlds/empty_world.world"/>
+        <arg name="paused" value="$(arg paused)"/>
+        <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+        <arg name="gui" value="$(arg gui)"/>
+        <arg name="verbose" value="$(arg verbose)"/>
+        <arg name="physics" value="$(arg physics)"/>
+        <arg name="extra_gazebo_args" value="$(arg extra_gazebo_args)"/>
     </include>
 
     <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" clear_params="true"

@@ -203,7 +203,10 @@ void LeggedHWSim::parseImu(XmlRpc::XmlRpcValue& imuDatas, const gazebo::physics:
 
     std::string frameId = imuDatas[it->first]["frame_id"];
     gazebo::physics::LinkPtr linkPtr = parentModel->GetLink(frameId);
-    ROS_ASSERT(linkPtr != nullptr);
+    if (linkPtr == nullptr) {
+      ROS_ERROR_STREAM("Imu " << it->first << " references missing link [" << frameId << "]. Skip this imu.");
+      continue;
+    }
     imuDatas_.push_back((ImuData{
         .linkPtr_ = linkPtr,
         .ori_ = {0., 0., 0., 0.},

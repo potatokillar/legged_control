@@ -263,10 +263,10 @@ selfCollision
   ; Self Collision pairs
   collisionLinkPairs
   {
-    [0] "FL_calf, FR_calf"
-    [1] "RL_calf, RR_calf"
-    [2] "FL_calf, RL_calf"
-    [3] "FR_calf, RR_calf"
+    [0] "LF_calf, RF_calf"
+    [1] "LH_calf, RH_calf"
+    [2] "LF_calf, LH_calf"
+    [3] "RF_calf, RH_calf"
     [4] "LF_FOOT, RF_FOOT"
     [5] "LH_FOOT, RH_FOOT"
     [6] "LF_FOOT, LH_FOOT"

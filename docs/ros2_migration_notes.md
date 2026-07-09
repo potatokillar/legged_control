@@ -133,6 +133,33 @@ BUILD_TARGETS=legged_wl_description scripts/docker_build_ros1.sh
 
 该命令可以通过，用于确认 WL description 包、URDF 资源挂载和 ROS1 基础环境。
 
+若只验证 Gazebo world 和 WL 模型 spawn，不加载完整控制器，可编译：
+
+```bash
+BUILD_TARGETS="legged_wl_description legged_gazebo" scripts/docker_build_ros1.sh
+```
+
+启动脚本：
+
+```bash
+scripts/docker_launch_ros1.sh gazebo
+```
+
+常用参数：
+
+```bash
+scripts/docker_launch_ros1.sh gazebo -- gui:=false
+scripts/docker_launch_ros1.sh gazebo -- paused:=true z:=0.7
+```
+
+完整控制器入口：
+
+```bash
+scripts/docker_launch_ros1.sh controller
+```
+
+该入口需要完整控制链路编译通过。
+
 默认控制链路目标当前会失败在外部依赖缺失：
 
 - `ocs2_legged_robot`
