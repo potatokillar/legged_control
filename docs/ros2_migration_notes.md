@@ -99,19 +99,31 @@ ROS1 的 `roslaunch`、全局参数、`ros::NodeHandle`、controller manager 和
 
 ## ROS1 Docker 验证
 
-当前仓库提供 `scripts/docker_build_ros1.sh`，默认使用镜像：
+当前仓库提供 `docker/ros1/Dockerfile`，基于原始镜像构建本项目的 ROS1 编译镜像：
+
+```bash
+docker build -f docker/ros1/Dockerfile -t legged-control-ros1:latest docker/ros1
+```
+
+该镜像基于：
 
 ```bash
 192.168.1.93/iiri/build_x86_arm_ros1:latest
 ```
 
-脚本会把 `legged_control_sim` 挂载进容器，在容器中创建 catkin workspace，并默认编译：
+派生镜像补充了：
+
+- 过期 ROS apt key 刷新
+- `python3-catkin-tools`
+- `/home/root` 目录，避免原 entrypoint 在默认 root 用户下报错
+
+`scripts/docker_build_ros1.sh` 默认使用 `legged-control-ros1:latest`，会把 `legged_control_sim` 挂载进容器，在容器中创建 catkin workspace，并默认编译：
 
 ```bash
 legged_wl_description legged_controllers legged_gazebo
 ```
 
-镜像中当前可用的是 ROS Noetic 自带的 `catkin_make`，没有 `catkin-tools` 的 `catkin build` 命令；脚本会自动回退到 `catkin_make` 并使用 `CATKIN_WHITELIST_PACKAGES` 限定目标包。
+脚本优先使用 `catkin build`；如果镜像没有 `catkin-tools`，会自动回退到 `catkin_make` 并使用 `CATKIN_WHITELIST_PACKAGES` 限定目标包。脚本还会在 `catkin_make` 和 `catkin build` 生成目录混用时自动清理 `build/devel/logs`。
 
 已验证的最小 smoke test：
 
@@ -128,10 +140,11 @@ BUILD_TARGETS=legged_wl_description scripts/docker_build_ros1.sh
 - `ocs2_self_collision`
 - `pinocchio`
 
-镜像内已确认存在：
+派生镜像内已确认存在：
 
 - `gazebo_ros_control`
 - `controller_interface`
 - `hardware_interface`
+- `catkin-tools`
 
 如果容器内没有预装 OCS2，需要将 OCS2、Pinocchio、hpp-fcl、ocs2_robotic_assets 放在 `legged_control_sim` 同级可挂载路径下，或通过 `EXTRA_SOURCE_DIRS` 指定。

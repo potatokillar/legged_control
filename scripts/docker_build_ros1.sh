@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-IMAGE="${IMAGE:-192.168.1.93/iiri/build_x86_arm_ros1:latest}"
+IMAGE="${IMAGE:-legged-control-ros1:latest}"
 PULL_IMAGE="${PULL_IMAGE:-0}"
 BUILD_OCS2="${BUILD_OCS2:-0}"
 BUILD_TARGETS="${BUILD_TARGETS:-legged_wl_description legged_controllers legged_gazebo}"
 EXTRA_SOURCE_DIRS="${EXTRA_SOURCE_DIRS:-}"
+CLEAN_ON_TOOL_MISMATCH="${CLEAN_ON_TOOL_MISMATCH:-1}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
@@ -22,8 +23,11 @@ Environment:
   BUILD_TARGETS      Catkin targets. Default: ${BUILD_TARGETS}
   BUILD_OCS2         Build OCS2 prerequisites first when source is mounted. Default: ${BUILD_OCS2}
   EXTRA_SOURCE_DIRS  Colon-separated extra source directories to symlink into catkin_ws/src.
+  CLEAN_ON_TOOL_MISMATCH
+                     Remove generated build/devel/logs when switching between catkin and catkin_make. Default: ${CLEAN_ON_TOOL_MISMATCH}
 
 Examples:
+  docker build -f docker/ros1/Dockerfile -t legged-control-ros1:latest docker/ros1
   scripts/docker_build_ros1.sh
   BUILD_TARGETS="legged_wl_description" scripts/docker_build_ros1.sh
   BUILD_OCS2=1 scripts/docker_build_ros1.sh
@@ -70,6 +74,7 @@ docker_args=(
   -v "${HOST_WS}:/workspace/catkin_ws"
   -e "BUILD_TARGETS=${BUILD_TARGETS}"
   -e "BUILD_OCS2=${BUILD_OCS2}"
+  -e "CLEAN_ON_TOOL_MISMATCH=${CLEAN_ON_TOOL_MISMATCH}"
   -w /workspace/catkin_ws
 )
 
@@ -120,6 +125,18 @@ elif command -v catkin_make >/dev/null 2>&1; then
 else
   echo "ERROR: neither catkin nor catkin_make was found in container." >&2
   exit 11
+fi
+
+EXPECTED_BUILT_BY="${BUILD_TOOL}"
+if [[ "${BUILD_TOOL}" == "catkin_tools" ]]; then
+  EXPECTED_BUILT_BY="catkin build"
+fi
+if [[ "${CLEAN_ON_TOOL_MISMATCH}" == "1" && -f build/.built_by ]]; then
+  actual_built_by="$(cat build/.built_by)"
+  if [[ "${actual_built_by}" != "${EXPECTED_BUILT_BY}" ]]; then
+    echo "INFO: cleaning generated catkin workspace because build/.built_by is ${actual_built_by}, expected ${EXPECTED_BUILT_BY}." >&2
+    rm -rf build devel logs
+  fi
 fi
 
 declare -a catkin_make_packages=()
