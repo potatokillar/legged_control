@@ -9,9 +9,10 @@
     <param name="$(arg description_name)" textfile="$(arg urdf_file)"/>
     <param name="robot_description" textfile="$(arg urdf_file)"/>
 
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="wl_robot_state_publisher" output="screen"/>
+
     <group if="$(arg publish_static_model)">
         <node pkg="joint_state_publisher" type="joint_state_publisher" name="wl_joint_state_publisher" output="screen"/>
-        <node pkg="robot_state_publisher" type="robot_state_publisher" name="wl_robot_state_publisher" output="screen"/>
         <node pkg="tf2_ros" type="static_transform_publisher" name="wl_static_odom_to_base"
               args="0 0 0 0 0 0 odom base"/>
     </group>

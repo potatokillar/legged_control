@@ -13,12 +13,14 @@ HOST_WS="${HOST_WS:-${SIM_ROOT}/.docker_ros1_ws}"
 
 usage() {
   cat <<EOF
-Usage: $(basename "$0") <gazebo|controller|rviz|shell> [-- roslaunch_args...]
+Usage: $(basename "$0") <gazebo|controller|rviz|pause|unpause|shell> [-- roslaunch_args...]
 
 Commands:
-  gazebo      Launch Gazebo empty world and spawn the WL model.
+  gazebo      Launch Gazebo empty world and spawn the WL model paused by default.
   controller  Load WL controllers and OCS2 helper nodes.
   rviz        Launch RViz with the WL visualization config. Static model publishing is enabled by default.
+  pause       Pause Gazebo physics.
+  unpause     Unpause Gazebo physics.
   shell       Open a sourced ROS1 shell in the Docker workspace.
 
 Environment:
@@ -30,8 +32,9 @@ Environment:
 Examples:
   scripts/docker_launch_ros1.sh gazebo
   scripts/docker_launch_ros1.sh gazebo -- gui:=false
-  scripts/docker_launch_ros1.sh gazebo -- paused:=true z:=0.7
+  scripts/docker_launch_ros1.sh gazebo -- paused:=false z:=0.7
   scripts/docker_launch_ros1.sh controller
+  scripts/docker_launch_ros1.sh unpause
   scripts/docker_launch_ros1.sh rviz
   scripts/docker_launch_ros1.sh rviz -- publish_static_model:=false
   scripts/docker_launch_ros1.sh shell
@@ -48,7 +51,7 @@ case "$1" in
     usage
     exit 0
     ;;
-  gazebo|controller|rviz|shell)
+  gazebo|controller|rviz|pause|unpause|shell)
     MODE="$1"
     shift
     ;;
@@ -151,6 +154,14 @@ case "${mode}" in
   controller)
     require_packages legged_wl_description legged_controllers controller_manager ocs2_legged_robot_ros
     exec roslaunch legged_wl_description load_controller.launch "$@"
+    ;;
+  pause)
+    require_packages gazebo_ros
+    exec rosservice call /gazebo/pause_physics
+    ;;
+  unpause)
+    require_packages gazebo_ros
+    exec rosservice call /gazebo/unpause_physics
     ;;
   rviz)
     require_packages legged_wl_description ocs2_legged_robot_ros rviz grid_map_rviz_plugin

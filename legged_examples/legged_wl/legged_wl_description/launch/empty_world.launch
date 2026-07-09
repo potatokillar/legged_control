@@ -1,12 +1,15 @@
 <launch>
     <arg name="robot_type" default="wl" doc="Robot model name in Gazebo"/>
-    <arg name="z" default="0.5" doc="Initial spawn height"/>
-    <arg name="paused" default="false"/>
+    <arg name="z" default="0.42" doc="Initial spawn height"/>
+    <arg name="paused" default="true"/>
     <arg name="use_sim_time" default="true"/>
     <arg name="gui" default="true"/>
     <arg name="verbose" default="false"/>
     <arg name="physics" default="ode"/>
     <arg name="extra_gazebo_args" default=""/>
+    <arg name="haa" default="0.0" doc="Initial HAA joint position"/>
+    <arg name="hfe" default="0.9" doc="Initial HFE joint position"/>
+    <arg name="kfe" default="-1.8" doc="Initial KFE joint position"/>
 
     <param name="legged_robot_description" textfile="$(find legged_wl_description)/urdf/wl.urdf"/>
 
@@ -22,5 +25,10 @@
     </include>
 
     <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" clear_params="true"
-          args="-z $(arg z) -param legged_robot_description -urdf -model $(arg robot_type)" output="screen"/>
+          args="-z $(arg z) -param legged_robot_description -urdf -model $(arg robot_type)
+                -J LF_HAA $(arg haa) -J LF_HFE $(arg hfe) -J LF_KFE $(arg kfe)
+                -J LH_HAA $(arg haa) -J LH_HFE $(arg hfe) -J LH_KFE $(arg kfe)
+                -J RF_HAA $(arg haa) -J RF_HFE $(arg hfe) -J RF_KFE $(arg kfe)
+                -J RH_HAA $(arg haa) -J RH_HFE $(arg hfe) -J RH_KFE $(arg kfe)"
+          output="screen"/>
 </launch>
