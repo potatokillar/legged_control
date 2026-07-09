@@ -18,7 +18,7 @@ Usage: $(basename "$0") <gazebo|controller|rviz|shell> [-- roslaunch_args...]
 Commands:
   gazebo      Launch Gazebo empty world and spawn the WL model.
   controller  Load WL controllers and OCS2 helper nodes.
-  rviz        Launch RViz with the OCS2 legged robot visualization config.
+  rviz        Launch RViz with the WL visualization config. Static model publishing is enabled by default.
   shell       Open a sourced ROS1 shell in the Docker workspace.
 
 Environment:
@@ -33,7 +33,7 @@ Examples:
   scripts/docker_launch_ros1.sh gazebo -- paused:=true z:=0.7
   scripts/docker_launch_ros1.sh controller
   scripts/docker_launch_ros1.sh rviz
-  scripts/docker_launch_ros1.sh rviz -- publish_static_model:=true
+  scripts/docker_launch_ros1.sh rviz -- publish_static_model:=false
   scripts/docker_launch_ros1.sh shell
 EOF
 }
@@ -154,6 +154,16 @@ case "${mode}" in
     ;;
   rviz)
     require_packages legged_wl_description ocs2_legged_robot_ros rviz grid_map_rviz_plugin
+    has_static_model_arg=0
+    for arg in "$@"; do
+      if [[ "${arg}" == publish_static_model:=* ]]; then
+        has_static_model_arg=1
+        break
+      fi
+    done
+    if [[ "${has_static_model_arg}" == "0" ]]; then
+      set -- publish_static_model:=true "$@"
+    fi
     exec roslaunch legged_wl_description rviz.launch "$@"
     ;;
   shell)
