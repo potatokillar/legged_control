@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+
+<launch>
+    <arg name="cheater" default="false"/>
+
+    <include file="$(find legged_controllers)/launch/load_controller.launch">
+        <arg name="robot_type" value="wl"/>
+        <arg name="urdf_file" value="$(find legged_wl_description)/urdf/wl.urdf"/>
+        <arg name="cheater" value="$(arg cheater)"/>
+    </include>
+</launch>
