@@ -665,6 +665,13 @@
       <inertia ixx="9.6e-06" ixy="0.0" ixz="0.0" iyy="9.6e-06" iyz="0.0" izz="9.6e-06"/>
     </inertial>
   </link>
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="liblegged_hw_sim.so">
+      <robotNamespace>/</robotNamespace>
+      <robotParam>legged_robot_description</robotParam>
+      <robotSimType>legged_gazebo/LeggedHWSim</robotSimType>
+    </plugin>
+  </gazebo>
   <transmission name="LF_HAA_tran">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="LF_HAA">
