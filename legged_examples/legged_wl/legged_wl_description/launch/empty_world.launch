@@ -1,0 +1,14 @@
+<launch>
+    <arg name="robot_type" default="wl" doc="Robot model name in Gazebo"/>
+    <arg name="z" default="0.5" doc="Initial spawn height"/>
+
+    <param name="legged_robot_description" textfile="$(find legged_wl_description)/urdf/wl.urdf"/>
+
+    <rosparam file="$(find legged_gazebo)/config/default.yaml" command="load"/>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find legged_gazebo)/worlds/empty_world.world"/>
+    </include>
+
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" clear_params="true"
+          args="-z $(arg z) -param legged_robot_description -urdf -model $(arg robot_type)" output="screen"/>
+</launch>
