@@ -13,11 +13,12 @@ HOST_WS="${HOST_WS:-${SIM_ROOT}/.docker_ros1_ws}"
 
 usage() {
   cat <<EOF
-Usage: $(basename "$0") <gazebo|controller|shell> [-- roslaunch_args...]
+Usage: $(basename "$0") <gazebo|controller|rviz|shell> [-- roslaunch_args...]
 
 Commands:
   gazebo      Launch Gazebo empty world and spawn the WL model.
   controller  Load WL controllers and OCS2 helper nodes.
+  rviz        Launch RViz with the OCS2 legged robot visualization config.
   shell       Open a sourced ROS1 shell in the Docker workspace.
 
 Environment:
@@ -31,6 +32,7 @@ Examples:
   scripts/docker_launch_ros1.sh gazebo -- gui:=false
   scripts/docker_launch_ros1.sh gazebo -- paused:=true z:=0.7
   scripts/docker_launch_ros1.sh controller
+  scripts/docker_launch_ros1.sh rviz
   scripts/docker_launch_ros1.sh shell
 EOF
 }
@@ -45,7 +47,7 @@ case "$1" in
     usage
     exit 0
     ;;
-  gazebo|controller|shell)
+  gazebo|controller|rviz|shell)
     MODE="$1"
     shift
     ;;
@@ -131,6 +133,9 @@ require_packages() {
         echo "Build first: scripts/docker_build_ros1.sh" >&2
         echo "Current controller build also requires OCS2 and Pinocchio to be available." >&2
         ;;
+      rviz)
+        echo "Build first: scripts/docker_build_ros1.sh --build-ocs2" >&2
+        ;;
     esac
     exit 21
   fi
@@ -144,6 +149,10 @@ case "${mode}" in
   controller)
     require_packages legged_wl_description legged_controllers controller_manager ocs2_legged_robot_ros
     exec roslaunch legged_wl_description load_controller.launch "$@"
+    ;;
+  rviz)
+    require_packages legged_wl_description ocs2_legged_robot_ros rviz
+    exec roslaunch legged_wl_description rviz.launch "$@"
     ;;
   shell)
     exec bash -l

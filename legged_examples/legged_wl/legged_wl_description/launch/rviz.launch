@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+
+<launch>
+    <arg name="urdf_file" default="$(find legged_wl_description)/urdf/wl.urdf"/>
+    <arg name="description_name" default="legged_robot_description"/>
+    <arg name="rvizconfig" default="$(find ocs2_legged_robot_ros)/rviz/legged_robot.rviz"/>
+
+    <param name="$(arg description_name)" textfile="$(arg urdf_file)"/>
+
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rvizconfig)" output="screen"/>
+</launch>
