@@ -13,6 +13,7 @@ RUN python3 -c "import urllib.request; print(urllib.request.urlopen('https://raw
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         python3-catkin-tools \
+        ros-noetic-grid-map-rviz-plugin \
     && rm -rf /var/lib/apt/lists/*
 
 RUN grep -qxF "source /opt/ros/noetic/setup.bash" /root/.bashrc \

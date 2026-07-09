@@ -3,9 +3,18 @@
 <launch>
     <arg name="urdf_file" default="$(find legged_wl_description)/urdf/wl.urdf"/>
     <arg name="description_name" default="legged_robot_description"/>
-    <arg name="rvizconfig" default="$(find ocs2_legged_robot_ros)/rviz/legged_robot.rviz"/>
+    <arg name="rvizconfig" default="$(find legged_wl_description)/rviz/legged_robot_wl.rviz"/>
+    <arg name="publish_static_model" default="false"/>
 
     <param name="$(arg description_name)" textfile="$(arg urdf_file)"/>
+    <param name="robot_description" textfile="$(arg urdf_file)"/>
+
+    <group if="$(arg publish_static_model)">
+        <node pkg="joint_state_publisher" type="joint_state_publisher" name="wl_joint_state_publisher" output="screen"/>
+        <node pkg="robot_state_publisher" type="robot_state_publisher" name="wl_robot_state_publisher" output="screen"/>
+        <node pkg="tf2_ros" type="static_transform_publisher" name="wl_static_odom_to_base"
+              args="0 0 0 0 0 0 odom base"/>
+    </group>
 
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rvizconfig)" output="screen"/>
 </launch>

@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<robot name="a1_description" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="wl_description" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <material name="black">
     <color rgba="0.0 0.0 0.0 1.0"/>
   </material>
@@ -13,7 +13,7 @@
     <color rgba="0.2 0.2 0.2 1.0"/>
   </material>
   <material name="silver">
-    <color rgba="0.913725490196 0.913725490196 0.847058823529 1.0"/>
+    <color rgba="0.16 0.18 0.20 1.0"/>
   </material>
   <material name="orange">
     <!-- <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/> -->
@@ -45,7 +45,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="../meshes/trunk.dae" scale="1 1 1"/>
+        <mesh filename="package://legged_wl_description/meshes/trunk.dae" scale="1 1 1"/>
       </geometry>
       <material name="silver"/>
     </visual>
@@ -103,7 +103,7 @@
       <!-- the same as a1 -->
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="../meshes/FL_hip.dae" scale="1 1 1"/>
+        <mesh filename="package://legged_wl_description/meshes/FL_hip.dae" scale="1 1 1"/>
       </geometry>
       <material name="silver"/>
     </visual>
@@ -148,7 +148,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="../meshes/thigh_mirror.dae" scale="1 1 1"/>
+        <mesh filename="package://legged_wl_description/meshes/thigh_mirror.dae" scale="1 1 1"/>
       </geometry>
       <material name="silver"/>
     </visual>
@@ -184,7 +184,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="../meshes/calf.dae" scale="1 1 1"/>
+        <mesh filename="package://legged_wl_description/meshes/calf.dae" scale="1 1 1"/>
       </geometry>
       <material name="silver"/>
     </visual>
@@ -247,7 +247,7 @@
       <!-- <origin rpy="3.14159265359 0 0" xyz="0 0 0"/> -->
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/FR_hip.dae" scale="1 1 1"/>
+        <mesh filename="package://legged_wl_description/meshes/FR_hip.dae" scale="1 1 1"/>
       </geometry>
       <material name="silver"/>
     </visual>
@@ -292,7 +292,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="../meshes/thigh.dae" scale="1 1 1"/>
+        <mesh filename="package://legged_wl_description/meshes/thigh.dae" scale="1 1 1"/>
       </geometry>
       <material name="silver"/>
     </visual>
@@ -328,7 +328,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="../meshes/calf.dae" scale="1 1 1"/>
+        <mesh filename="package://legged_wl_description/meshes/calf.dae" scale="1 1 1"/>
       </geometry>
       <material name="silver"/>
     </visual>
@@ -392,7 +392,7 @@
       <!-- <origin rpy="0 3.14159265359 0" xyz="0 0 0"/> -->
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../meshes/RL_hip.dae" scale="1 1 1"/>
+        <mesh filename="package://legged_wl_description/meshes/RL_hip.dae" scale="1 1 1"/>
       </geometry>
       <material name="silver"/>
     </visual>
@@ -437,7 +437,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="../meshes/thigh_mirror.dae" scale="1 1 1"/>
+        <mesh filename="package://legged_wl_description/meshes/thigh_mirror.dae" scale="1 1 1"/>
       </geometry>
       <material name="silver"/>
     </visual>
@@ -473,7 +473,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="../meshes/calf.dae" scale="1 1 1"/>
+        <mesh filename="package://legged_wl_description/meshes/calf.dae" scale="1 1 1"/>
       </geometry>
       <material name="silver"/>
     </visual>
@@ -535,7 +535,7 @@
       <!-- <origin rpy="3.14159265359 3.14159265359 0" xyz="0 0 0"/> -->
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="../meshes/RR_hip.dae" scale="1 1 1"/>
+        <mesh filename="package://legged_wl_description/meshes/RR_hip.dae" scale="1 1 1"/>
       </geometry>
       <material name="silver"/>
     </visual>
@@ -580,7 +580,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="../meshes/thigh.dae" scale="1 1 1"/>
+        <mesh filename="package://legged_wl_description/meshes/thigh.dae" scale="1 1 1"/>
       </geometry>
       <material name="silver"/>
     </visual>
@@ -616,7 +616,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="../meshes/calf.dae" scale="1 1 1"/>
+        <mesh filename="package://legged_wl_description/meshes/calf.dae" scale="1 1 1"/>
       </geometry>
       <material name="silver"/>
     </visual>

@@ -33,6 +33,7 @@ Examples:
   scripts/docker_launch_ros1.sh gazebo -- paused:=true z:=0.7
   scripts/docker_launch_ros1.sh controller
   scripts/docker_launch_ros1.sh rviz
+  scripts/docker_launch_ros1.sh rviz -- publish_static_model:=true
   scripts/docker_launch_ros1.sh shell
 EOF
 }
@@ -135,6 +136,7 @@ require_packages() {
         ;;
       rviz)
         echo "Build first: scripts/docker_build_ros1.sh --build-ocs2" >&2
+        echo "Rebuild the Docker image if grid_map_rviz_plugin is missing." >&2
         ;;
     esac
     exit 21
@@ -151,7 +153,7 @@ case "${mode}" in
     exec roslaunch legged_wl_description load_controller.launch "$@"
     ;;
   rviz)
-    require_packages legged_wl_description ocs2_legged_robot_ros rviz
+    require_packages legged_wl_description ocs2_legged_robot_ros rviz grid_map_rviz_plugin
     exec roslaunch legged_wl_description rviz.launch "$@"
     ;;
   shell)
